@@ -33,7 +33,7 @@ const client = {
   get: (url) => {
     return new Promise((resolve, reject) => {
       if (url === '/api/products') {
-        resolve(products);
+        resolve([...products]);
       } else if (url.match(/\/api\/products\/.+/)) {
         let id = url.split('/')[3];
         let product = products.find((p) => p.id === id);
