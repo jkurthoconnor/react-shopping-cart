@@ -17,12 +17,24 @@ class Shop extends Component {
     })
   }
 
+  handleAddProduct = (newProduct) => {
+    console.log(newProduct);
+
+    client.post('/api/products', newProduct)
+      .then(product => {
+        this.setState( {
+          products: [ ...this.state.products, product ]
+        })
+    })
+  }
+
   render() {
     return (
      <div>
       <ShoppingCart />
       <ProductsWrapper
        products={this.state.products}
+       onAddProduct={this.handleAddProduct}
       />
      </div>
     );

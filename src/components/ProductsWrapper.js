@@ -8,7 +8,10 @@ function ProductsWrapper(props){
       <ProductsList
         products={props.products}
       />
-      <ToggleableAddProduct />
+      <ToggleableAddProduct 
+        products={props.products} 
+        onAddProduct={props.onAddProduct}
+      />
     </main>
     )
 }

@@ -4,10 +4,10 @@ import EditableProduct from './EditableProduct.js'
 function ProductsList(props) {
   let products = props.products.map(p => {
     return (
-        <EditableProduct
-          key={p.id}
-          {...p}
-        />
+      <EditableProduct
+        key={p.id}
+        {...p}
+      />
     )
   })
 
