@@ -1,20 +1,17 @@
 import React, { Component } from 'react';
+import Product from './Product';
 
-function EditableProduct(p) {
-  return (
-        <div className="product">
-          <div className="product-details">
-            <h3>{p.title}</h3>
-            <p className="price">${p.price}</p>
-            <p className="quantity">{p.quantity} left in stock</p>
-            <div className="actions product-actions">
-              <a className="button add-to-cart">Add to Cart</a>
-              <a className="button edit">Edit</a>
-            </div>
-            <a className="delete-button"><span>X</span></a>
-          </div>
-        </div>
-  )
+class EditableProduct extends Component {
+  render() {
+    return (
+      <div className="product">
+        <Product
+          {...this.props}
+        />
+      </div>
+    )
+  }
+
 }
 
-export default EditableProduct
+export default EditableProduct;
