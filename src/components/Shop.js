@@ -9,15 +9,6 @@ class Shop extends Component {
     cart: [],
   }
 
-  componentDidMount() {
-      client.get('/api/products')
-            .then((products) => {
-      this.setState({
-        products
-      })
-    })
-  }
-
   updateCart = (productId) => {
     const product = this.state.products.filter(prod => prod.id === productId)[0];
     const someInCart = this.state.cart.some(prod => prod.id === productId);
@@ -65,15 +56,6 @@ class Shop extends Component {
     } else {
       return false;
     }
-  }
-
-  handleAddProduct = (newProduct) => {
-    client.post('/api/products', newProduct)
-      .then(product => {
-        this.setState( {
-          products: [ ...this.state.products, product ]
-        })
-    })
   }
 
   handleDeleteFromCart = (productId) => {

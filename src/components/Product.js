@@ -1,4 +1,6 @@
 import React from 'react';
+import client from '../lib/client'
+import store from '../lib/store'
 
 const Product = (props) => {
 
@@ -7,10 +9,19 @@ const Product = (props) => {
     props.onAddItemToCart(props.id);
   };
 
-  const handleDeleteFromCart = (e) => {
-    e.preventDefault();
-    props.onDeleteFromCart(props.id);
-  };
+  const handleDeleteFromList = (e) => {
+    e.preventDefault()
+    let id = props.id
+    client.delete(`/api/products/${id}`)
+    .then(() => {
+      store.dispatch({id, type: 'DELETE_PRODUCT'})
+    });
+  }
+
+  const handleEditClick = (e) => {
+    e.preventDefault()
+    props.onEditClick()
+  }
 
   return (
     <div className="product-details">
@@ -18,17 +29,17 @@ const Product = (props) => {
       <p className="price">${props.price}</p>
       <p className="quantity">{props.quantity} Left in stock</p>
       <div className="actions product-actions">
-        <a className="button add-to-cart" 
+        <a className="button add-to-cart"
            onClick={handleAddToCart}>
           Add to Cart
         </a>
-        <a className="button edit" 
-           onClick={props.onFormToggle}>
+        <a className="button edit"
+           onClick={handleEditClick}>
           Edit
         </a>
       </div>
       <a className="delete-button"
-         onClick={handleDeleteFromCart} >
+         onClick={handleDeleteFromList} >
         <span>X</span>
       </a>
     </div>

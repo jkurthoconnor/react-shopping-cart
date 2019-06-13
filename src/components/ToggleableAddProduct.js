@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import store from '../lib/store'
+import client from '../lib/client'
 
 class ToggleableAddProduct extends Component {
 
@@ -12,9 +14,13 @@ class ToggleableAddProduct extends Component {
     e.preventDefault();
 
     let newProduct = {...this.state }
-    this.props.onAddProduct(newProduct)  
 
-    this.setState({ 
+    client.post('/api/products', newProduct)
+      .then(product => {
+        store.dispatch({product, type: 'ADD_PRODUCT'})
+    })
+
+    this.setState({
       title: '',
       price: '',
       quantity: '',

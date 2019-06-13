@@ -1,11 +1,11 @@
-const uuid = require('uuidv4');
+const uuid = require("uuidv4");
 
 let uuid1 = uuid();
 
 let products = [
   {
     id: uuid1,
-    title: 'Amazon Kindle E-reader',
+    title: "Amazon Kindle E-reader",
     quantity: 5,
     price: 79.99
   },
@@ -17,26 +17,26 @@ let products = [
   },
   {
     id: uuid(),
-    title: 'Yamaha Portable Keyboard',
+    title: "Yamaha Portable Keyboard",
     quantity: 2,
     price: 155.99
   },
   {
     id: uuid(),
-    title: 'Tinker, Tailor, Soldier, Spy - A John le Carre Novel',
+    title: "Tinker, Tailor, Soldier, Spy - A John le Carre Novel",
     quantity: 12,
     price: 13.74
   }
 ];
 
 const client = {
-  get: (url) => {
+  get: url => {
     return new Promise((resolve, reject) => {
-      if (url === '/api/products') {
+      if (url === "/api/products") {
         resolve([...products]);
       } else if (url.match(/\/api\/products\/.+/)) {
-        let id = url.split('/')[3];
-        let product = products.find((p) => p.id === id);
+        let id = url.split("/")[3];
+        let product = products.find(p => p.id === id);
         resolve(product);
       } else {
         reject("Invalid URL!");
@@ -47,15 +47,15 @@ const client = {
   post: (url, data) => {
     return new Promise((resolve, reject) => {
       if (!data.title || !data.quantity || !data.price) {
-        reject('Please provide all fields');
+        reject("Please provide all fields");
       }
 
-      if (url === '/api/products') {
-        let product = Object.assign({id: uuid()}, data);
+      if (url === "/api/products") {
+        let product = Object.assign({ id: uuid() }, data);
         products.push(product);
-        resolve(product);
+        resolve({ ...product });
       } else {
-        reject('Invalid URL!');
+        reject("Invalid URL!");
       }
     });
   },
@@ -63,25 +63,43 @@ const client = {
   put: (url, data) => {
     return new Promise((resolve, reject) => {
       if (!data.title && !data.quantity && !data.price) {
-        reject('Please provide at least one field');
+        reject("Please provide at least one field");
       }
 
       if (url.match(/\/api\/products\/.+/)) {
-        let id = url.split('/')[3];
-        let product = products.find((p) => p.id === id);
+        let id = url.split("/")[3];
+        let product = products.find(p => p.id === id);
         let newProduct = Object.assign({}, product, data);
 
-        products = products.map((p) => {
+        products = products.map(p => {
           return p.id === id ? newProduct : p;
         });
 
         resolve(newProduct);
       } else {
-        reject('Invalid URL!');
+        reject("Invalid URL!");
+      }
+    });
+  },
+
+  delete: url => {
+    return new Promise((resolve, reject) => {
+      let id = url.split("/")[3];
+      if (!products.some(p => p.id === id)) {
+        reject("Invalid product");
+      }
+
+      if (url.match(/\/api\/products\/.+/)) {
+        let product = products.find(p => p.id === id);
+        let index = products.indexOf(product);
+        products.splice(index, 1);
+        resolve();
+      } else {
+        reject("Invalid URL!");
       }
     });
   }
-}
+};
 
 /* **USAGE**
 client.get('/api/products')
@@ -99,6 +117,11 @@ client.post(`/api/products`, {title: 'ABC', quantity: 25, price: 12})
 client.put(`/api/products/${uuid1}`, {title: 'Book Reader'})
       .then((product) => {
         console.log(product);
+      });
+
+client.delete(`/api/products/${uuid1}`)
+      .then(() => {
+
       });
 */
 

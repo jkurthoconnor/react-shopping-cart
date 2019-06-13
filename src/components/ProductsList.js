@@ -1,25 +1,37 @@
 import React from 'react';
 import EditableProduct from './EditableProduct';
+import store from '../lib/store'
+import client from '../lib/client';
 
-const ProductsList = (props) => {
+class ProductsList extends React.Component {
 
-  let renderEditableProducts = props.products.map( (product) => {
+  componentDidMount(){
+      this.unsubscribe = store.subscribe(() => this.forceUpdate())
+      client.get('/api/products')
+            .then((products) => {
+              store.dispatch({products, type: 'FETCH_PRODUCTS'})
+    })
+  }
+
+  render()  {
+    let editableProducts = store.getState().products.map( (product) => {
+      return (
+        <EditableProduct
+          key={product.id}
+          onAddItemToCart={this.props.onAddItemToCart}
+          onDeleteFromCart={this.props.onDeleteFromCart}
+          {...product}
+        />
+      );
+    });
+
     return (
-      <EditableProduct
-        key={product.id}
-        onAddItemToCart={props.onAddItemToCart}
-        onDeleteFromCart={props.onDeleteFromCart}
-        {...product}
-      />
+      <div className='product-listing'>
+        <h2>Products</h2>
+        { editableProducts }
+      </div>
     );
-  });
-
-  return (
-    <div className='product-listing'>
-      <h2>Products</h2>
-      { renderEditableProducts }
-    </div>
-  );
+  }
 };
 
 export default ProductsList;
