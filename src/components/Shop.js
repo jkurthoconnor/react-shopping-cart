@@ -85,7 +85,7 @@ class Shop extends Component {
 
     let cartWithReducedQuantity = this.state.cart.map( product => {
       if (product.id === productId) {
-        return Object.assign(product, {quantity: product.quantity - 1});
+        return {...product, quantity: product.quantity - 1 };
       } else {
         return product;
       }
@@ -93,7 +93,7 @@ class Shop extends Component {
 
     let listWithIncreasedQuantity = this.state.products.map( product => {
       if (product.id === productId) { 
-        return Object.assign(product, {quantity: product.quantity + 1});
+       return { ...product, quantity: product.quantity + 1 } 
       } else {
         return product;
       }
