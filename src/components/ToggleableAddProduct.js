@@ -37,21 +37,21 @@ class ToggleableAddProduct extends Component {
           <h3>Add Product</h3>
           <form>
       <div className="input-group">
-        <label for="product-name">Product Name</label>
+        <label htmlFor="product-name">Product Name</label>
         <input name="title" type="text" id="product-name" 
           value={this.state.title}
           onChange={this.onValueChange}/>
       </div>
 
       <div className="input-group">
-        <label for="product-price">Price</label>
+        <label htmlFor="product-price">Price</label>
         <input name="price" type="text" id="product-price" 
           value={this.state.price}
           onChange={this.onValueChange} />
          </div>
 
       <div className="input-group">
-        <label for="product-quantity">Quantity</label>
+        <label htmlFor="product-quantity">Quantity</label>
         <input name="quantity" type="text" id="product-quantity" 
           value={this.state.quantity}
           onChange={this.onValueChange}/>
