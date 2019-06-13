@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ProductsList from './ProductsList.js'
 import ToggleableAddProduct from './ToggleableAddProduct.js'
 
@@ -7,9 +7,10 @@ function ProductsWrapper(props){
     <main>
       <ProductsList
         products={props.products}
+        onAddItemToCart={props.onAddItemToCart}
       />
-      <ToggleableAddProduct 
-        products={props.products} 
+      <ToggleableAddProduct
+        products={props.products}
         onAddProduct={props.onAddProduct}
       />
     </main>
@@ -17,3 +18,4 @@ function ProductsWrapper(props){
 }
 
 export default ProductsWrapper
+

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import ShoppingCart from './ShoppingCart.js'
+import Header from './Header.js'
 import ProductsWrapper from './ProductsWrapper.js'
 import client from '../lib/client';
 
 class Shop extends Component {
   state = {
     products: [],
+    cart: [],
   }
 
   componentDidMount() {
@@ -17,9 +18,31 @@ class Shop extends Component {
     })
   }
 
-  handleAddProduct = (newProduct) => {
-    console.log(newProduct);
+  handleAddProductToCart = (productId) => {
+    const product = this.state.products.filter(prod => prod.id === productId);
+    this.updateQuantity(product, -1);
 
+    //this.setState({
+    //  cart: this.state.cart.concat(product)
+    //})
+  }
+
+  updateQuantity(product, quantity) {
+    client.put(`/api/products/${product.id}`, { quantity: product.quantity + quantity })
+          .then((product) => {
+            this.setState({
+              products: this.state.products.map(p => {
+                if (p.id === product.id) {
+                  return {...product};
+                } else {
+                  return p;
+                }
+              })
+            });
+          });
+  }
+
+  handleAddProduct = (newProduct) => {
     client.post('/api/products', newProduct)
       .then(product => {
         this.setState( {
@@ -31,10 +54,13 @@ class Shop extends Component {
   render() {
     return (
      <div>
-      <ShoppingCart />
+      <Header
+        itemsInCart={this.state.cart}
+      />
       <ProductsWrapper
-       products={this.state.products}
-       onAddProduct={this.handleAddProduct}
+        products={this.state.products}
+        onAddProduct={this.handleAddProduct}
+        onAddItemToCart={this.handleAddProductToCart}
       />
      </div>
     );
@@ -42,12 +68,3 @@ class Shop extends Component {
 }
 
 export default Shop;
-
-/*
-ShoppingCart
-ProductsWrapper
-ProductsList
-EditableProduct
-ToggleableAddProduct
-ProductForm
-*/
