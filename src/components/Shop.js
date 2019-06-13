@@ -76,6 +76,35 @@ class Shop extends Component {
     })
   }
 
+  handleDeleteFromCart = (productId) => {
+    let transactionAllowed = this.state.cart.filter( product => {
+      return product.id === productId;
+    }).length > 0;
+
+    if (!transactionAllowed) { return }
+
+    let cartWithReducedQuantity = this.state.cart.map( product => {
+      if (product.id === productId) {
+        return Object.assign(product, {quantity: product.quantity - 1});
+      } else {
+        return product;
+      }
+    });
+
+    let listWithIncreasedQuantity = this.state.products.map( product => {
+      if (product.id === productId) { 
+        return Object.assign(product, {quantity: product.quantity + 1});
+      } else {
+        return product;
+      }
+    });
+
+    this.setState({
+      cart: cartWithReducedQuantity.filter( item => item.quantity > 0 ),
+      products: listWithIncreasedQuantity,
+    })
+  }
+
   render() {
     return (
       <div>
@@ -86,6 +115,7 @@ class Shop extends Component {
           products={this.state.products}
           onAddProduct={this.handleAddProduct}
           onAddItemToCart={this.handleAddProductToCart}
+          onDeleteFromCart={this.handleDeleteFromCart}
         />
       </div>
     );

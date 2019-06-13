@@ -8,6 +8,7 @@ const ProductsList = (props) => {
       <EditableProduct
         key={product.id}
         onAddItemToCart={props.onAddItemToCart}
+        onDeleteFromCart={props.onDeleteFromCart}
         {...product}
       />
     );

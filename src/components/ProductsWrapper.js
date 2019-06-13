@@ -8,6 +8,7 @@ function ProductsWrapper(props){
       <ProductsList
         products={props.products}
         onAddItemToCart={props.onAddItemToCart}
+        onDeleteFromCart={props.onDeleteFromCart}
       />
       <ToggleableAddProduct 
         products={props.products} 
