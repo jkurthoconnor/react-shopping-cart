@@ -1,4 +1,4 @@
-export default const products = [
+const products = [
   {
     id: 123432,
     title: 'Amazon Kindle E-reader',
@@ -12,3 +12,5 @@ export default const products = [
     price: 649.99
   },
 ];
+
+export default products;

@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { shallow } from 'enzyme';
 import ProductsList from '../components/ProductsList';
-import productsMock from './productsMock';
+import products from './productsMock';
 
 describe('ProductsList', () => {
   let wrapper = shallow(
-    <ProductsList products={productsMock} />
+    <ProductsList products={products} />
   );
 
   it('has a <div> `product-listing` element', () => {
