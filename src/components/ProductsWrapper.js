@@ -6,12 +6,10 @@ const ProductsWrapper = (props) => {
   return (
     <main>
       <ProductsList
-        products={props.products}
         onAddItemToCart={props.onAddItemToCart}
         onDeleteFromCart={props.onDeleteFromCart}
       />
       <ToggleableAddProduct 
-        products={props.products} 
         onAddProduct={props.onAddProduct}
       />
     </main>

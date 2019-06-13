@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import Header from './Header'
 import ProductsWrapper from './ProductsWrapper'
-import client from '../lib/client';
 
 class Shop extends Component {
   state = {
-    products: [],
     cart: [],
   }
 
@@ -34,28 +32,6 @@ class Shop extends Component {
 
   handleAddProductToCart = (productId) => {
     this.updateProductQuantity(productId) && this.updateCart(productId);
-  }
-
-  updateProductQuantity = (productId) => {
-    const product = this.state.products.filter(prod => prod.id === productId)[0];
-
-    if (product.quantity !== 0) {
-      const updatedProductsList = this.state.products.map((product) => {
-        if (product.id === productId) {
-          return Object.assign({}, product, {quantity: product.quantity - 1});
-        } else {
-          return product;
-        }
-      });
-
-      this.setState({
-        products: updatedProductsList
-      });
-
-      return true;
-    } else {
-      return false;
-    }
   }
 
   handleDeleteFromCart = (productId) => {
@@ -94,7 +70,6 @@ class Shop extends Component {
           itemsInCart={this.state.cart}
         />
         <ProductsWrapper
-          products={this.state.products}
           onAddProduct={this.handleAddProduct}
           onAddItemToCart={this.handleAddProductToCart}
           onDeleteFromCart={this.handleDeleteFromCart}
