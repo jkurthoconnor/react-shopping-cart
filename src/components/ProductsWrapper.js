@@ -1,9 +1,9 @@
 import React from 'react';
-import ProductsList from './ProductsList.js'
-import ToggleableAddProduct from './ToggleableAddProduct.js'
+import ProductsList from './ProductsList'
+import ToggleableAddProduct from './ToggleableAddProduct'
 
 function ProductsWrapper(props){
-   return (
+  return (
     <main>
       <ProductsList
         products={props.products}
@@ -14,7 +14,7 @@ function ProductsWrapper(props){
         onAddProduct={props.onAddProduct}
       />
     </main>
-    )
+  )
 }
 
 export default ProductsWrapper

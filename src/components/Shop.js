@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Header from './Header.js'
-import ProductsWrapper from './ProductsWrapper.js'
+import Header from './Header'
+import ProductsWrapper from './ProductsWrapper'
 import client from '../lib/client';
 
 class Shop extends Component {
@@ -18,28 +18,53 @@ class Shop extends Component {
     })
   }
 
-  handleAddProductToCart = (productId) => {
-    const product = this.state.products.filter(prod => prod.id === productId);
-    this.updateQuantity(product, -1);
+  updateCart = (productId) => {
+    const product = this.state.products.filter(prod => prod.id === productId)[0];
+    const someInCart = this.state.cart.some(prod => prod.id === productId);
 
-    //this.setState({
-    //  cart: this.state.cart.concat(product)
-    //})
+    let updatedCart;
+
+    if (someInCart) {
+      updatedCart = this.state.cart.map((product) => {
+        if (product.id === productId) {
+          return Object.assign({}, product, {quantity: product.quantity + 1})
+        } else {
+          return product;
+        }
+      });
+    } else {
+      updatedCart = this.state.cart.concat(Object.assign({}, product, {quantity: 1})); 
+    }
+
+    this.setState({
+      cart: updatedCart,
+    });
   }
 
-  updateQuantity(product, quantity) {
-    client.put(`/api/products/${product.id}`, { quantity: product.quantity + quantity })
-          .then((product) => {
-            this.setState({
-              products: this.state.products.map(p => {
-                if (p.id === product.id) {
-                  return {...product};
-                } else {
-                  return p;
-                }
-              })
-            });
-          });
+  handleAddProductToCart = (productId) => {
+    this.updateProductQuantity(productId) && this.updateCart(productId);
+  }
+
+  updateProductQuantity = (productId) => {
+    const product = this.state.products.filter(prod => prod.id === productId)[0];
+
+    if (product.quantity !== 0) {
+      const updatedProductsList = this.state.products.map((product) => {
+        if (product.id === productId) {
+          return Object.assign({}, product, {quantity: product.quantity - 1});
+        } else {
+          return product;
+        }
+      });
+
+      this.setState({
+        products: updatedProductsList
+      });
+
+      return true;
+    } else {
+      return false;
+    }
   }
 
   handleAddProduct = (newProduct) => {
@@ -53,16 +78,16 @@ class Shop extends Component {
 
   render() {
     return (
-     <div>
-      <Header 
-        itemsInCart={this.state.cart}
-      />
-      <ProductsWrapper
-        products={this.state.products}
-        onAddProduct={this.handleAddProduct}
-        onAddItemToCart={this.handleAddProductToCart}
-      />
-     </div>
+      <div>
+        <Header 
+          itemsInCart={this.state.cart}
+        />
+        <ProductsWrapper
+          products={this.state.products}
+          onAddProduct={this.handleAddProduct}
+          onAddItemToCart={this.handleAddProductToCart}
+        />
+      </div>
     );
   }
 }

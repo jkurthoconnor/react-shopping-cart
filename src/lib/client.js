@@ -12,7 +12,7 @@ let products = [
   {
     id: uuid(),
     title: 'Apple 10.5-Inch iPad Pro',
-    quantity: 0,
+    quantity: 10,
     price: 649.99
   },
   {

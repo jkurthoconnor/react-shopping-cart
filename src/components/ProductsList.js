@@ -3,7 +3,7 @@ import EditableProduct from './EditableProduct'
 
 const ProductsList = (props) => {
 
-  const renderEditableProducts = props.products.map(product => {
+  let renderEditableProducts = props.products.map( (product) => {
     return (
       <EditableProduct
         key={product.id}
