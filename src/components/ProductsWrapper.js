@@ -2,7 +2,7 @@ import React from 'react';
 import ProductsList from './ProductsList'
 import ToggleableAddProduct from './ToggleableAddProduct'
 
-function ProductsWrapper(props){
+const ProductsWrapper = (props) => {
   return (
     <main>
       <ProductsList
@@ -16,7 +16,7 @@ function ProductsWrapper(props){
       />
     </main>
   )
-}
+};
 
 export default ProductsWrapper
 

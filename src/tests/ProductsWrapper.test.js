@@ -26,6 +26,3 @@ describe('ProductsWrapper', () => {
     ).toEqual(1)
   });
 });
-
-
-

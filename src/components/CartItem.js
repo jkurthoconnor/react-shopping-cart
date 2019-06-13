@@ -8,6 +8,6 @@ const CartItem = (props) => {
       <td>${(props.price * props.quantity).toFixed(2)}</td>
     </tr>
   );
-}
+};
 
 export default CartItem;

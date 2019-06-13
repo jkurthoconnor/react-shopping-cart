@@ -33,7 +33,6 @@ const Product = (props) => {
       </a>
     </div>
   );
-
 };
 
 export default Product;

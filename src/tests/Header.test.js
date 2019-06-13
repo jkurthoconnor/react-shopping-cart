@@ -8,7 +8,7 @@ describe('Header', () => {
     <Header />
   );
 
-  it('has an  <h1> element', () => {
+  it('has an <h1> element', () => {
     expect(
       wrapper.containsMatchingElement(
         <h1>The Shop!</h1>

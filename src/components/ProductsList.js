@@ -1,5 +1,5 @@
 import React from 'react';
-import EditableProduct from './EditableProduct'
+import EditableProduct from './EditableProduct';
 
 const ProductsList = (props) => {
 
@@ -12,7 +12,7 @@ const ProductsList = (props) => {
         {...product}
       />
     );
-  })
+  });
 
   return (
     <div className='product-listing'>
@@ -20,6 +20,6 @@ const ProductsList = (props) => {
       { renderEditableProducts }
     </div>
   );
-}
+};
 
 export default ProductsList;
