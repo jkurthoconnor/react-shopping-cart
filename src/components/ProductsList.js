@@ -1,24 +1,24 @@
 import React from 'react';
-import EditableProduct from './EditableProduct.js'
+import EditableProduct from './EditableProduct'
 
-const ProductsList = (props) => (
-  <div className="product-listing">
-    <h2>Products</h2>
-    
-    {
-      props.products.map(p => {
-        return (
-          <EditableProduct
-            key={p.id}
-            onAddItemToCart={props.onAddItemToCart}
-            {...p}
-          />
-        )}
-      )
-    }
-  
-  </div>
-    
-);
+const ProductsList = (props) => {
+
+  const renderEditableProducts = props.products.map(product => {
+    return (
+      <EditableProduct
+        key={product.id}
+        onAddItemToCart={props.onAddItemToCart}
+        {...product}
+      />
+    );
+  })
+
+  return (
+    <div className='product-listing'>
+      <h2>Products</h2>
+      { renderEditableProducts }
+    </div>
+  );
+}
 
 export default ProductsList;
