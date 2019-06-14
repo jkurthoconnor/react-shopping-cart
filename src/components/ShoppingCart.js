@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import client from '../lib/client';
 import store from '../lib/store';
 import CartItemList from './CartItemList';
 
@@ -10,6 +11,12 @@ class ShoppingCart extends Component {
 
   componentWillUnmount() {
     this.unsubscribe();
+  }
+
+  checkOut = (e) => {
+    e.preventDefault();
+    client.get('/api/products')
+      .then( products => store.dispatch( { products, type: 'CHECKOUT' }));
   }
 
   parseCartContents = () => {
@@ -34,9 +41,14 @@ class ShoppingCart extends Component {
   renderedCart = ( (input = this.parseCartContents()) => {
     return (input.length > 0) ?
       (
-        <CartItemList
-          items={input}
-        />
+        <div>
+          <CartItemList
+            items={input}
+          />
+          <a className="button checkout"
+             onClick={this.checkOut}
+            >Checkout</a>
+        </div>
       )
     :
       (

@@ -6,8 +6,13 @@ const Product = (props) => {
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    let item  = { id: props.id, title: props.title, price: props.price };
-    store.dispatch({item, type: 'ADD_ITEM_TO_CART'});
+    if (props.quantity === 0) {
+      alert('Item is out of stock');
+      return;
+    }
+
+    let product  = { id: props.id, title: props.title, price: props.price };
+    store.dispatch({product, type: 'ADD_PRODUCT_TO_CART'});
   };
 
   const handleDeleteFromList = (e) => {
