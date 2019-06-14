@@ -10,7 +10,6 @@ const ProductsWrapper = (props) => {
         onDeleteFromCart={props.onDeleteFromCart}
       />
       <ToggleableAddProduct 
-        onAddProduct={props.onAddProduct}
       />
     </main>
   )

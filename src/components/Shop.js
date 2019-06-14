@@ -70,7 +70,6 @@ class Shop extends Component {
           itemsInCart={this.state.cart}
         />
         <ProductsWrapper
-          onAddProduct={this.handleAddProduct}
           onAddItemToCart={this.handleAddProductToCart}
           onDeleteFromCart={this.handleDeleteFromCart}
         />
