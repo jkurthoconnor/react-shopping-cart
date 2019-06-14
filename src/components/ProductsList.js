@@ -22,8 +22,6 @@ class ProductsList extends React.Component {
       return (
         <EditableProduct
           key={product.id}
-          onAddItemToCart={this.props.onAddItemToCart}
-          onDeleteFromCart={this.props.onDeleteFromCart}
           {...product}
         />
       );

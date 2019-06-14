@@ -2,15 +2,11 @@ import React from 'react';
 import ProductsList from './ProductsList'
 import ToggleableAddProduct from './ToggleableAddProduct'
 
-const ProductsWrapper = (props) => {
+const ProductsWrapper = () => {
   return (
     <main>
-      <ProductsList
-        onAddItemToCart={props.onAddItemToCart}
-        onDeleteFromCart={props.onDeleteFromCart}
-      />
-      <ToggleableAddProduct 
-      />
+      <ProductsList />
+      <ToggleableAddProduct />
     </main>
   )
 };
