@@ -5,7 +5,7 @@ const Header = (props) => (
   <header>
     <h1>The Shop!</h1>
     <ShoppingCart
-      items={props.itemsInCart}
+      // items={props.itemsInCart}
     />
   </header>
 );

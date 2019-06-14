@@ -5,12 +5,16 @@ import client from '../lib/client';
 
 class ProductsList extends React.Component {
 
-  componentDidMount(){
+  componentDidMount() {
       this.unsubscribe = store.subscribe(() => this.forceUpdate())
       client.get('/api/products')
             .then((products) => {
               store.dispatch({products, type: 'FETCH_PRODUCTS'})
     })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
   }
 
   render()  {
